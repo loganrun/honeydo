@@ -1,0 +1,20 @@
+body{
+    /* display: flex;
+    justify-content: center; */
+    /* align-items: center; */
+    background-color: #D1D5DB;
+    padding: 0px;
+    margin:0px;
+}
+
+nav{
+    background-color: #192130;
+    display: flex;
+    text-align: center; 
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    height: 75px;
+    width: 100%;
+}
