@@ -9,18 +9,34 @@ function initialLoad() {
     const todoList = document.getElementById('todo');
     for (let i = 0; i < 4; i++) {
       const item = data[i];
-      //console.log(item.id);
+      //console.log(item.completed);
+      if (item.completed === false) {
       const li = document.createElement('li');
+      li.id = item.id;
       li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
       li.innerHTML = `
-        <span>${item.title}</span> <button type="button" class="btn btn-sm btn-outline-success remove-item" id= "${item.id}">Done</button>
-      `;
+        <span id= ${item.id}>${item.title}</span> <button type="button" class="btn btn-sm btn-outline-success remove-item" id= ${item.id} >Done</button>`;
 
       const removeButton = li.querySelector('.remove-item');
-      removeButton.addEventListener('click', ()=> li.remove(), true);
+      removeButton.addEventListener('click', ()=>{
+        const removedId = li.id
+        li.remove()
+        
+        //console.log(removedId)
+        //axios.delete(`http://jsonplaceholder.typicode.com/users/1/todos/${item.id}`)
+      
+      });
       //doneButton.remove()
     
       todoList.appendChild(li);
+      }
+      if(item.completed === true){
+        const doneLi= document.getElementById('doneChore')
+        const li= document.createElement('li')
+        li.classList.add("list-group-item")
+        li.innerHTML = `${item.title}`;
+        doneLi.appendChild(li)
+      }
     }
   })
   .catch(error => {
