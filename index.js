@@ -1,4 +1,6 @@
 import axios from 'axios'
+import * as deleteItem from './delete.js'
+import * as addItem from './add.js'
 
 function initialLoad() {
   //const todoList = document.getElementById('todo');
@@ -31,9 +33,19 @@ function initialLoad() {
         const removedId = li.id
         li.remove()
         
-        //console.log(removedId)
-        //axios.delete(`http://jsonplaceholder.typicode.com/users/1/todos/${item.id}`)
-      
+        deleteItem(removedId)
+        async function deleteItem(data){
+        const response = await axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+        console.log(response)
+        window.alert("item removed")
+        const doneLi= document.getElementById('doneChore')
+        const li= document.createElement('li')
+        li.classList.add("list-group-item")
+        li.innerText = `Another one Gone!`;
+        doneLi.appendChild(li)
+
+        }
+
       });
     
       todoList.appendChild(li);
@@ -61,6 +73,7 @@ function handleAdd(event) {
   event.preventDefault(); 
 
     const newItemValue = newItemInput.value.trim(); 
+    //addItem(newItemValue)
 
     if (!newItemValue) {
       
@@ -78,36 +91,30 @@ function handleAdd(event) {
       removeButton.addEventListener('click', ()=>{
         const removedId = li.id
         li.remove()
+        //deleteItem(removedId)
         
-        //console.log(removedId)
-        //axios.delete(`http://jsonplaceholder.typicode.com/users/1/todos/${item.id}`)
-      
       });
     todoList.appendChild(li);
 
-    // Make the API call with Axios
-    axios.post('http://jsonplaceholder.typicode.com/users/1/todos', {
-      title: newItemValue,
-      completed: false, // Assuming new items are marked as incomplete
-    })
-      .then(response => {
-        console.log('Item added successfully:', response.data);
+    //addItem()
 
-        // Optionally update the local data structure with the response if needed
-      })
-      .catch(error => {
-        console.error('Error adding item:', error);
+    // axios.post('http://jsonplaceholder.typicode.com/users/1/todos', {
+    //   title: newItemValue,
+    //   completed: false, 
+    // })
+    //   .then(response => {
+    //     console.log('Item added successfully:', response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error adding item:', error);
+    //   });
 
-        // Handle API call errors (e.g., show an error message, remove the visual item)
-      });
-
-    // Clear the input field for the next item
     newItemInput.value = '';
 }
   
 
 
- 
+
 
 
 
