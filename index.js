@@ -9,12 +9,17 @@ function initialLoad() {
     const todoList = document.getElementById('todo');
     for (let i = 0; i < 4; i++) {
       const item = data[i];
-      console.log(item.id);
+      //console.log(item.id);
       const li = document.createElement('li');
       li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
       li.innerHTML = `
         <span>${item.title}</span> <button type="button" class="btn btn-sm btn-outline-success remove-item" id= "${item.id}">Done</button>
       `;
+
+      const removeButton = li.querySelector('.remove-item');
+      removeButton.addEventListener('click', ()=> li.remove(), true);
+      //doneButton.remove()
+    
       todoList.appendChild(li);
     }
   })
@@ -24,6 +29,12 @@ function initialLoad() {
 };
 initialLoad()
 
+function handleDone() {
+  console.log(target)
+
+}
+ 
+//('click', event =>{  const doneButton = document.getElementById(`${event.target.id}`)
   // return axios.get('http://jsonplaceholder.typicode.com/users/1/todos')
   //   .then(response => response.data) 
   //   .catch(error => {
