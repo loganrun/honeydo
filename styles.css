@@ -18,3 +18,13 @@ nav{
     height: 75px;
     width: 100%;
 }
+
+.btn-custom {
+    background-color: #192130;
+    border-color: #0C1319;  
+  }
+  
+.btn-custom:hover {
+    background-color: #1E2937;
+    border-color: #0C1319;
+  }
