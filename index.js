@@ -1,11 +1,20 @@
 import axios from 'axios'
 
 function initialLoad() {
+  //const todoList = document.getElementById('todo');
+  const form = document.getElementById('todoForm');
+  //const newItemInput = document.getElementById('newItem');
+
+  form.addEventListener('submit', handleAdd);
+
   
   fetch('http://jsonplaceholder.typicode.com/users/1/todos')
   .then((response) => response.json())
   .then(data =>{
-    
+    // const ad
+    // form.addEventListener('submit',handleAdd)
+
+
     const todoList = document.getElementById('todo');
     for (let i = 0; i < 4; i++) {
       const item = data[i];
@@ -26,7 +35,6 @@ function initialLoad() {
         //axios.delete(`http://jsonplaceholder.typicode.com/users/1/todos/${item.id}`)
       
       });
-      //doneButton.remove()
     
       todoList.appendChild(li);
       }
@@ -45,38 +53,61 @@ function initialLoad() {
 };
 initialLoad()
 
-function handleDone() {
-  console.log(target)
+function handleAdd(event) {
+  const todoList = document.getElementById('todo');
+  const form = document.getElementById('todoForm');
+  const newItemInput = document.getElementById('newItem');
 
+  event.preventDefault(); 
+
+    const newItemValue = newItemInput.value.trim(); 
+
+    if (!newItemValue) {
+      
+      return;
+    }
+
+    
+    const li = document.createElement('li');
+    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+    li.innerHTML = `
+      <span>${newItemValue}</span>
+      <button type="button" class="btn btn-sm btn-outline-success remove-item">Done</button>
+    `;
+    const removeButton = li.querySelector('.remove-item');
+      removeButton.addEventListener('click', ()=>{
+        const removedId = li.id
+        li.remove()
+        
+        //console.log(removedId)
+        //axios.delete(`http://jsonplaceholder.typicode.com/users/1/todos/${item.id}`)
+      
+      });
+    todoList.appendChild(li);
+
+    // Make the API call with Axios
+    axios.post('http://jsonplaceholder.typicode.com/users/1/todos', {
+      title: newItemValue,
+      completed: false, // Assuming new items are marked as incomplete
+    })
+      .then(response => {
+        console.log('Item added successfully:', response.data);
+
+        // Optionally update the local data structure with the response if needed
+      })
+      .catch(error => {
+        console.error('Error adding item:', error);
+
+        // Handle API call errors (e.g., show an error message, remove the visual item)
+      });
+
+    // Clear the input field for the next item
+    newItemInput.value = '';
 }
+  
+
+
  
-//('click', event =>{  const doneButton = document.getElementById(`${event.target.id}`)
-  // return axios.get('http://jsonplaceholder.typicode.com/users/1/todos')
-  //   .then(response => response.data) 
-  //   .catch(error => {
-  //     console.error('Error fetching data:', error);
-  //     throw error; // Re-throw error to propagate in promise chain
-  //   });
-//}
 
 
-  // .then(chore => {
-  //   console.log(chore); // Access the fetched data
-  // })
-  // .catch(error => {
-  //   console.error('Error processing data:', error); // Handle errors here
-  // });
-// import axios from 'axios'
 
-
-// function initialLoad(){
-//     const response = axios.get('http://jsonplaceholder.typicode.com/users/1/todos')
-// .then(
-//   console.log(response.data)
-
-// )
-
-
-// }
-
-// initialLoad()
